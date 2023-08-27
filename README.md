@@ -1,6 +1,6 @@
 # 快捷指令集
 
-### 安装
+## 安装
 
 ```bash
 ./install.sh
@@ -46,3 +46,8 @@
 4. nodeclear: `dirrm node_modules`.
 5. nodeclean: `dirrm node_modules`.
 6. distrm: `dirrm dist`. 递归删除构建目录`dist`
+
+
+## 说明
+1. 此命令集中有一部分是多个相互具有逻辑关系的命令组成（如：`fst`, `tsf`, `dirrm`），所以使用时最好对原本的命令比较了解。
+2. 

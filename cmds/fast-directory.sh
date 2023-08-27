@@ -5,12 +5,27 @@ alias dir="open ."
 # 递归删除 node_modules 目录, 这对前端开发比较有用, 尤其是 monorepo 多子项目管理时
 # dirrm node_modules
 # dirrm dist
+# 参数 --root 或 -r 表示仅删除当前根目录的匹配目录
+# dirrm --root dist
 function fast_cmd_rm_fr_dir {
+  local ROOT_ONLY=0
+  if [[ $1 = "--root" || $1 = "-r" ]]; then
+      ROOT_ONLY=1
+  fi
+
   local NAME=$1
   local CURRENT_DIR=$2
 
+  if [ $ROOT_ONLY -eq 1 ]; then
+      NAME=$2
+      CURRENT_DIR=$3
+  fi
+
   if [ -z "$NAME" ]; then
       return
+  elif [ "${NAME:0:1}" = "/" ]; then
+      local COUNT=$((${#NAME} - 1))
+      NAME=${NAME#/}
   fi
 
   if [ -z "$CURRENT_DIR" ]; then
@@ -28,7 +43,7 @@ function fast_cmd_rm_fr_dir {
       if [ "$TARGET" = "$ITEM_NAME" ]; then
         eval "rm -fr $TARGET"
         echo "[DELETED] $TARGET"
-      else
+      elif [ $ROOT_ONLY -eq 0 ]; then
         eval "fast_cmd_rm_fr_dir $NAME $ITEM_NAME"
       fi
 
