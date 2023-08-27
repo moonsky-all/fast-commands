@@ -3,8 +3,8 @@ alias dir="open ."
 # 从当前目录开始递归删除匹配名称的目录/文件
 # 如:
 # 递归删除 node_modules 目录, 这对前端开发比较有用, 尤其是 monorepo 多子项目管理时
-# rrmdir node_modules
-# rrmdir dist
+# dirrm node_modules
+# dirrm dist
 function fast_cmd_rm_fr_dir {
   local NAME=$1
   local CURRENT_DIR=$2
@@ -37,7 +37,7 @@ function fast_cmd_rm_fr_dir {
   done
 }
 
-alias rrmdir='fast_cmd_rm_fr_dir'
+alias dirrm='fast_cmd_rm_fr_dir'
 alias distrm='fast_cmd_rm_fr_dir dist'
 alias noderm='fast_cmd_rm_fr_dir node_modules'
 alias nodeclear='fast_cmd_rm_fr_dir node_modules'

@@ -38,15 +38,23 @@ function fre() {
         MERGE_COUNT=3
     fi
 
-    fast-run "git rebase -i HEAD~$MERGE_COUNT"
+    eval "git rebase -i HEAD~$MERGE_COUNT"
 }
 
 
 #
 # 快速提交本地修改并推送至远端仓库
+# git add . && git commit -m $1 && git push
 function fast() {
     fcm "$1"
     git push
+}
+
+#
+# git add . && git commit -m $1 && git push --force
+function fastf() {
+    fcm "$1"
+    git push --force
 }
 
 
@@ -72,7 +80,7 @@ function git_stash_commands {
         CMD="list"
     fi
 
-    fast_run "git stash $CMD"
+    eval "git stash $CMD"
 }
 
 alias fst="git_stash_commands"
