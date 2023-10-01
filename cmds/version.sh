@@ -1,13 +1,49 @@
+#
+# 打印输出目标版本
+# 如:
+# version
+# version pnpm
+# version npm
+# version yarn
+# version node
+# version nvm
+# version mysql
+# version java
+# version mvn
+# version brew
 function version {
     local CMD=$1
+    local VERSION=$2
+
     if [ -z "$CMD" ]; then
-        echo "Unknown <cmd>"
-        return
+        CMD="uname"
+        VERSION="-a"
+    elif [[ $CMD == "--all" ]]; then
+        version
+        version nvm
+        version node
+        version nrm
+        version npm
+        version yarn
+        version pnpm
+        version java
+        version mvn
+        version mysql
+        version rustup
+        version rustc
+        version cargo
+        version go
+        version brew
+        version git
+        return;
     fi
 
-    local VERSION=$2
     if [ -z "$VERSION" ]; then
-        VERSION=$(eval "$CMD --version")
+        if [[ $CMD == "go" ]]; then
+            VERSION=$(eval "$CMD version")
+        else
+            VERSION=$(eval "$CMD --version")
+        fi
     elif [ "${VERSION:0:1}" = "-" ]; then
         VERSION=$(eval "$CMD $VERSION")
     fi
@@ -19,10 +55,12 @@ function version {
         TYPE=0
     fi
 
-    if [ $TYPE -eq 0 ]; then
+    if [[ $VERSION == "" ]]; then
+        echo "\033[41;37m[ERROR]\033[0m $CMD"
+    elif [ $TYPE -eq 0 ]; then
         echo "\e[1;42m[VERSION]\e[0m $VERSION"
     else
-        echo "\e[1;42m[VERSION]\e[0m $CMD current version: $VERSION"
+        echo "\e[1;42m[VERSION]\e[0m '$CMD' current version: $VERSION"
     fi
 }
 

@@ -5,6 +5,7 @@ alias pnc="pnpm create"
 alias pni="pnpm install"
 alias pnit="pnpm install-test"
 # run-script
+alias pnr="pnpm run"
 alias pns="pnpm start"
 alias pnb="pnpm run build"
 alias pne="pnpm env"

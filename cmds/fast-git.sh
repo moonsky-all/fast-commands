@@ -31,30 +31,45 @@ alias fcmm='git commit --amend'
 # 如:
 # fre
 # fre 3
+# fre <Commit ID>
 function fre() {
-    local MERGE_COUNT=$1
-
-    if [ -z "$MERGE_COUNT" ]; then
-        MERGE_COUNT=3
+    if [ -z "$1" ]; then
+        eval "git rebase -i HEAD~3"
+    elif [[ "$1" =~ ^[0-9]{1,3}$ ]]; then
+        if [[ $1 -gt 1 ]]; then
+            eval "git rebase -i HEAD~$1"
+        else
+            eval "git rebase -i HEAD~3"
+        fi
+    else
+        eval "git rebase -i $1"
     fi
-
-    eval "git rebase -i HEAD~$MERGE_COUNT"
 }
 
 
 #
 # 快速提交本地修改并推送至远端仓库
-# git add . && git commit -m $1 && git push
+# e.g,
+# fast # git add . && git commit -m $1 && git push
+# fast -f
+# fast --force
 function fast() {
-    fcm "$1"
-    git push
-}
+    local MSG=$1
+    local FORCE=0
 
-#
-# git add . && git commit -m $1 && git push --force
-function fastf() {
-    fcm "$1"
-    git push --force
+    if [[ $MSG = '-f' || $MSG = '--force' ]]; then
+        FORCE=1
+        MSG=$2
+    elif [[ $2 = '-f' || $2 = '--force' ]]; then
+        FORCE=1
+    fi
+
+    fcm "$MSG"
+    if [ $FORCE -eq 1 ]; then
+        git push --force
+    else
+        git push
+    fi
 }
 
 

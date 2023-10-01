@@ -5,9 +5,10 @@ alias dir="open ."
 # 递归删除 node_modules 目录, 这对前端开发比较有用, 尤其是 monorepo 多子项目管理时
 # dirrm node_modules
 # dirrm dist
+#
 # 参数 --root 或 -r 表示仅删除当前根目录的匹配目录
 # dirrm --root dist
-function fast_cmd_rm_fr_dir {
+function fast_deep_rm_dir_name_of {
   local ROOT_ONLY=0
   if [[ $1 = "--root" || $1 = "-r" ]]; then
       ROOT_ONLY=1
@@ -35,16 +36,16 @@ function fast_cmd_rm_fr_dir {
 
   local TARGET="$CURRENT_DIR/$NAME"
 
-  for ITEM_NAME in $CURRENT_DIR/*
+  for ITEM_NAME in "$CURRENT_DIR"/*
   do
 
     if [ -d "$ITEM_NAME" ]; then
 
       if [ "$TARGET" = "$ITEM_NAME" ]; then
         eval "rm -fr $TARGET"
-        echo "[DELETED] $TARGET"
+        echo "\e[1;42m[DELETED]\e[0m $TARGET"
       elif [ $ROOT_ONLY -eq 0 ]; then
-        eval "fast_cmd_rm_fr_dir $NAME $ITEM_NAME"
+        eval "fast_deep_rm_dir_name_of $NAME $ITEM_NAME"
       fi
 
     fi
@@ -52,8 +53,8 @@ function fast_cmd_rm_fr_dir {
   done
 }
 
-alias dirrm='fast_cmd_rm_fr_dir'
-alias distrm='fast_cmd_rm_fr_dir dist'
-alias noderm='fast_cmd_rm_fr_dir node_modules'
-alias nodeclear='fast_cmd_rm_fr_dir node_modules'
-alias nodeclean='fast_cmd_rm_fr_dir node_modules'
+alias dirrm='fast_deep_rm_dir_name_of'
+alias distrm='fast_deep_rm_dir_name_of dist'
+alias noderm='fast_deep_rm_dir_name_of node_modules'
+alias nodeclear='fast_deep_rm_dir_name_of node_modules'
+alias nodeclean='fast_deep_rm_dir_name_of node_modules'

@@ -32,12 +32,11 @@
 2. fcmm: `alias='git commit --amend'`. 修改最近一次提交信息
 3. fre: `git rebase -i HEAD~<$1>`. 合并最近 N 次`git commit`
 4. fast: `git add . && git commit -m $1 && git push`. 快速提交本地修改并推送至远端仓库
-5. fastf: `git add . && git commit -m $1 && git push`. 快速提交本地修改并强制推送至远端仓库
-6. fst: `git stash save`. 将目前修改保存到临时存储区
-7. tsf: `git stash pop`. 应用最近一次临时存储区的修改，并从临时存储区移除记录
-8. fst pop: `git stash pop`.
-9. fst ls: `git stash list`.
-10. fst ll: `git stash list`.
+5. fst: `git stash save`. 将目前修改保存到临时存储区
+6. tsf: `git stash pop`. 应用最近一次临时存储区的修改，并从临时存储区移除记录
+7. fst pop: `git stash pop`.
+8. fst ls: `git stash list`.
+9. fst ll: `git stash list`.
 
 #### 三、[Directory](https://github.com/moonsky-all/fast-commands/blob/main/cmds/fast-directory.sh)
 1. dir: `alias dir='open .'`. 在`Finder`打开当前命令行工作目录
@@ -50,4 +49,3 @@
 
 ## 说明
 1. 此命令集中有一部分是多个相互具有逻辑关系的命令组成（如：`fst`, `tsf`, `dirrm`），所以使用时最好对原本的命令比较了解。
-2. 

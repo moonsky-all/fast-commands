@@ -8,4 +8,5 @@ function load_fast_commands_all {
   source "$_CURR_FAST_COMMANDS_PATH/cmds/fast-npm.sh"
   source "$_CURR_FAST_COMMANDS_PATH/cmds/fast-yarn.sh"
   source "$_CURR_FAST_COMMANDS_PATH/cmds/fast-maven.sh"
+  source "$_CURR_FAST_COMMANDS_PATH/cmds/fast-rust.sh"
 }
