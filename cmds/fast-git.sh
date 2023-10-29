@@ -77,26 +77,35 @@ function fast() {
 # git 临时存储区域命令
 #
 # fst 等价于 git stash save, 或 git stash --all
-# tsf 等价于 git stash pop
-# fst ls 等价于 git stash list
-# fst ll 等价于 git stash list
-function git_stash_commands {
+# tsf 等价于 git stash pop, 应用并删除最近一次暂存区内容
+# fst ls 等价于 git stash list, 列表显示所有暂存区内容
+# fst ll 等价于 git stash list, 列表显示所有暂存区内容
+# fst clear 等价于 git stash clear, 清空所有暂存区内容
+function __git_stash_commands {
     local CMD=$1
+    local TYPE=0
 
     if [ -z "$CMD" ]; then
         CMD="--all"
+        TYPE=1
     fi
 
     if [ "$CMD" = "ls" ]; then
         CMD="list"
+        TYPE=1
     fi
 
     if [ "$CMD" = "ll" ]; then
         CMD="list"
+        TYPE=1
     fi
 
-    eval "git stash $CMD"
+    if [ $TYPE -eq 0 ]; then
+        eval "git stash save $CMD"
+    else
+        eval "git stash $CMD"
+    fi
 }
 
-alias fst="git_stash_commands"
+alias fst="__git_stash_commands"
 alias tsf="git stash pop"

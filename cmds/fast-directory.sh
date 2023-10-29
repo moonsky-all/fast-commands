@@ -25,6 +25,7 @@ function fast_deep_rm_dir_name_of {
   if [ -z "$NAME" ]; then
       return
   elif [ "${NAME:0:1}" = "/" ]; then
+      echo "NAME: ${NAME:0:1}, $NAME"
       local COUNT=$((${#NAME} - 1))
       NAME=${NAME#/}
   fi
