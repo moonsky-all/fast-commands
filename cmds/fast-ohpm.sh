@@ -1,0 +1,1 @@
+alias oh='ohpm'

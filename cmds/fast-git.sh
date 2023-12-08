@@ -46,6 +46,84 @@ function fre() {
     fi
 }
 
+#
+# 创建并切换到指定分支
+#
+# 如:
+# fbc feature/user-module 基于当前分支创建分支 'feature/user-module', 然后切换到新分支
+#
+function fbc() {
+    local BRANCH_NAME=$1
+
+    if [ -z "$BRANCH_NAME" ]; then
+        echo "Unknown new branch name, please use: fbc <new-branch-name>";
+        return;
+    fi
+
+    eval "git branch $BRANCH_NAME"
+    eval "git checkout $BRANCH_NAME"
+}
+
+alias gbc='fbc'
+# omz 移除了 gup, 改为 gpr, 但 gup 更符合人体工学
+alias fup='git pull --rebase'
+
+#
+# 创建 git tag 标签，可以自定义 tag 信息或生成默认信息
+#
+# gtg v1.0.0 创建本地标签并使用默认标签信息
+# gtg v1.1.0 "Release: v1.0.0" 创建本地标签并使用自定义标签信息
+#
+function gtg() {
+    local TAG_NAME=$1
+    local TAG_MESSAGE=$2
+
+    if [ $# -lt 2 ]; then
+        local DATETIME=$(date +%Y-%m-%d%p%H:%M:%S)
+        TAG_MESSAGE="[Release] <$TAG_NAME> at '$DATETIME'";
+        echo_info Auto "use tag message with: \`$TAG_MESSAGE\`.";
+        echo_log "You can custom tag message of: ftag <tag_name> <tag_message>";
+    fi
+
+    eval "git tag $TAG_NAME -m '$TAG_MESSAGE'";
+}
+
+#
+# 创建 git tag 标签，同时将该标签推送至远程仓库，可以自定义 tag 信息或生成默认信息
+#
+# ftg v1.0.0 使用默认标签信息创建标签并推送至默认远程仓库
+# ftg v1.1.0 "Release: v1.0.0" 使用自定义标签信息创建标签并推送至默认远程仓库
+# ftg origin v1.1.1 "Release: v1.1.1" 使用自定义标签信息创建标签并推送至指定远程仓库
+# ftg origin v1.1.2 . 使用默认标签信息创建标签并推送至指定远程仓库
+#
+function ftg() {
+    local ORIGIN='origin'
+    local TAG_NAME=$1
+    local TAG_MESSAGE=$2
+
+    if [ $# -gt 2 ]; then
+        ORIGIN=$1;
+        TAG_NAME=$2;
+
+        if [ "$3" = "." ]; then
+            local DATETIME=$(date +%Y-%m-%d%p%H:%M:%S)
+            TAG_MESSAGE="[Release] <$TAG_NAME> at '$DATETIME'";
+            echo_info Auto "use tag message with: \`$TAG_MESSAGE\`.";
+            echo_log "You can custom tag message of: ftag <tag_name> <tag_message>";
+        else
+            TAG_MESSAGE=$3;
+        fi
+    elif [ $# -lt 2 ]; then
+        local DATETIME=$(date +%Y-%m-%d%p%H:%M:%S)
+        TAG_MESSAGE="[Release] <$TAG_NAME> at '$DATETIME'";
+        echo_info Auto "use tag message with: \`$TAG_MESSAGE\`.";
+        echo_log "You can custom tag message of: ftag <tag_name> <tag_message>";
+    fi
+
+    eval "git tag $TAG_NAME -m '$TAG_MESSAGE'";
+    echo "";
+    eval "git push $ORIGIN $TAG_NAME";
+}
 
 #
 # 快速提交本地修改并推送至远端仓库

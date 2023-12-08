@@ -59,3 +59,5 @@ alias distrm='fast_deep_rm_dir_name_of dist'
 alias noderm='fast_deep_rm_dir_name_of node_modules'
 alias nodeclear='fast_deep_rm_dir_name_of node_modules'
 alias nodeclean='fast_deep_rm_dir_name_of node_modules'
+
+alias cdw='cd ~/Workspaces'
