@@ -61,3 +61,7 @@ alias nodeclear='fast_deep_rm_dir_name_of node_modules'
 alias nodeclean='fast_deep_rm_dir_name_of node_modules'
 
 alias cdw='cd ~/Workspaces'
+alias cw='cd ~/Workspaces'
+alias ww='cd ~/Workspaces'
+alias cm='cd ~/Workspaces/moon'
+alias mm='cd ~/Workspaces/moon'
