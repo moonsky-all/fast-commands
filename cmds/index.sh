@@ -1,17 +1,22 @@
 function load_fast_commands_all {
-  local _CURR_FAST_COMMANDS_PATH=$1
-  source "$_CURR_FAST_COMMANDS_PATH/cmds/fast-logging.sh"
-  source "$_CURR_FAST_COMMANDS_PATH/cmds/aliases.sh"
-  source "$_CURR_FAST_COMMANDS_PATH/fns/string.sh"
-  source "$_CURR_FAST_COMMANDS_PATH/cmds/version.sh"
-  source "$_CURR_FAST_COMMANDS_PATH/cmds/fast-git.sh"
-  source "$_CURR_FAST_COMMANDS_PATH/cmds/fast-directory.sh"
-  source "$_CURR_FAST_COMMANDS_PATH/cmds/fast-pnpm.sh"
-  source "$_CURR_FAST_COMMANDS_PATH/cmds/fast-npm.sh"
-  source "$_CURR_FAST_COMMANDS_PATH/cmds/fast-yarn.sh"
-  source "$_CURR_FAST_COMMANDS_PATH/cmds/fast-maven.sh"
-  source "$_CURR_FAST_COMMANDS_PATH/cmds/fast-rust.sh"
-  source "$_CURR_FAST_COMMANDS_PATH/cmds/fast-gradle.sh"
-  source "$_CURR_FAST_COMMANDS_PATH/cmds/fast-ohpm.sh"
-  source "$_CURR_FAST_COMMANDS_PATH/cmds/fast-gh.sh"
+  source "$1/cmds/fast-logging.sh"
+
+  source "$1/cmds/aliases.sh"
+  source "$1/fns/string.sh"
+  source "$1/cmds/version.sh"
+  source "$1/cmds/fast-git.sh"
+  source "$1/cmds/fast-directory.sh"
+  source "$1/cmds/fast-pnpm.sh"
+  source "$1/cmds/fast-npm.sh"
+  source "$1/cmds/fast-yarn.sh"
+  source "$1/cmds/fast-maven.sh"
+  source "$1/cmds/fast-rust.sh"
+  source "$1/cmds/fast-gradle.sh"
+  source "$1/cmds/fast-ohpm.sh"
+  source "$1/cmds/fast-gh.sh"
+
+  local LOCALE_INDEX="$1/local/index.sh"
+  if [ -f "$LOCALE_INDEX" ]; then
+      source "$LOCALE_INDEX";
+  fi
 }

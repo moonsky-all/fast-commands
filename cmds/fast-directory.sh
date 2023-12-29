@@ -8,7 +8,7 @@ alias dir="open ."
 #
 # 参数 --root 或 -r 表示仅删除当前根目录的匹配目录
 # dirrm --root dist
-function fast_deep_rm_dir_name_of {
+function __fast_deep_rm_dir_name_of {
   local ROOT_ONLY=0
   if [[ $1 = "--root" || $1 = "-r" ]]; then
       ROOT_ONLY=1
@@ -46,7 +46,7 @@ function fast_deep_rm_dir_name_of {
         eval "rm -fr $TARGET"
         echo "\e[1;42m[DELETED]\e[0m $TARGET"
       elif [ $ROOT_ONLY -eq 0 ]; then
-        eval "fast_deep_rm_dir_name_of $NAME $ITEM_NAME"
+        eval "__fast_deep_rm_dir_name_of $NAME $ITEM_NAME"
       fi
 
     fi
@@ -54,14 +54,30 @@ function fast_deep_rm_dir_name_of {
   done
 }
 
-alias dirrm='fast_deep_rm_dir_name_of'
-alias distrm='fast_deep_rm_dir_name_of dist'
-alias noderm='fast_deep_rm_dir_name_of node_modules'
-alias nodeclear='fast_deep_rm_dir_name_of node_modules'
-alias nodeclean='fast_deep_rm_dir_name_of node_modules'
+alias dirrm='__fast_deep_rm_dir_name_of';
+alias distrm='__fast_deep_rm_dir_name_of dist';
+alias noderm='__fast_deep_rm_dir_name_of node_modules';
+alias nodeclear='__fast_deep_rm_dir_name_of node_modules';
+alias nodeclean='__fast_deep_rm_dir_name_of node_modules';
 
 alias cdw='cd ~/Workspaces'
 alias cw='cd ~/Workspaces'
 alias ww='cd ~/Workspaces'
 alias cm='cd ~/Workspaces/moon'
 alias mm='cd ~/Workspaces/moon'
+
+#
+# 递归创建并进入一级或多级文件夹
+#
+function __create_and_enter_directory {
+  if [ -z "$1" ]; then
+      echo_warn "Please confirm the folder path to be created."
+      return;
+  fi
+
+  mkdir -p "$1";
+  cd "$1";
+}
+
+
+alias new="__create_and_enter_directory"
