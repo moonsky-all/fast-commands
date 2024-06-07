@@ -60,11 +60,9 @@ alias noderm='__fast_deep_rm_dir_name_of node_modules';
 alias nodeclear='__fast_deep_rm_dir_name_of node_modules';
 alias nodeclean='__fast_deep_rm_dir_name_of node_modules';
 
-alias cdw='cd ~/Workspaces'
-alias cw='cd ~/Workspaces'
 alias ww='cd ~/Workspaces'
-alias cm='cd ~/Workspaces/moon'
 alias mm='cd ~/Workspaces/moon'
+alias hub='cd ~/Workspaces/github'
 
 #
 # 递归创建并进入一级或多级文件夹

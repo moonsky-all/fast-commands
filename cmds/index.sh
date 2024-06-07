@@ -19,4 +19,6 @@ function load_fast_commands_all {
   if [ -f "$LOCALE_INDEX" ]; then
       source "$LOCALE_INDEX";
   fi
+
+  source "$1/cmds/locals.sh" "$1"
 }

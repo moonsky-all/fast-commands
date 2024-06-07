@@ -164,7 +164,7 @@ function __git_stash_commands {
     local TYPE=0
 
     if [ -z "$CMD" ]; then
-        CMD="--all"
+        CMD="save"
         TYPE=1
     fi
 
