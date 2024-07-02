@@ -65,7 +65,7 @@ function fbc() {
 }
 
 alias gbc='fbc'
-# omz 移除了 gup, 改为 gpr, 但 gup 更符合人体工学
+# omz 移除了 gup, 改为 gpr, 但 gup 用习惯了
 alias fup='git pull --rebase'
 
 #

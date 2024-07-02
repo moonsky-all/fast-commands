@@ -3,13 +3,12 @@ alias np='npm'
 alias npc='npm create'
 # install
 alias npi='npm install'
-alias npd='npm install --save-dev'
 alias npid='npm install --save-dev'
-alias npg='npm install --global'
 alias npig='npm install --global'
 alias npit='npm install-test'
 # run-script
 alias npr='npm run'
+alias npd='npm run dev'
 alias nps='npm start'
 alias npb='npm run build'
 # config
