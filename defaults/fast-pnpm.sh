@@ -11,6 +11,7 @@ alias pnd="pnpm run dev"
 alias pnb="pnpm run build"
 alias pne="pnpm env"
 alias pnt="pnpm test"
+alias pnx="pnpm dlx"
 # dependencies
 alias pna="pnpm add"
 alias pnad="pnpm add --save-dev"
