@@ -99,18 +99,21 @@ function __do_git_pull_rebase_depth() {
 }
 
 #
-# TODO: 这个命令 cwd 会停在最后一个拉取的目录，而不是命令开始的目录
+# 拉取 git 远程代码，最后停留在当前目录
+#
+# 1. fup: git pull --rebase 拉取当前目录远程代码
+# 2. fup -d: 递归拉取当前目录下所有子目录的 git 远程代码
 #
 function fup() {
+  local ORIGIN_PWD="$(pwd)"
   local PWD="$(pwd)"
-  if [[ "$1" = "-d" || "$1" = '-deep' || "$1" = '-depth' || "$1" = '--deep' || "$1" = '--depth' ]]; then
+  if [[ "$1" = "-d" || "$1" = '--deep' || "$1" = '--depth' ]]; then
     __do_git_pull_rebase_depth "$PWD"
-    echo_success "$PWD"
-    eval "cd $PWD"
+    echo_success "$ORIGIN_PWD"
+    eval "cd $ORIGIN_PWD"
   elif [ -d "$PWD/.git" ]; then
     __do_git_pull_rebase_repo "$PWD"
     echo_success "$PWD"
-    eval "cd $PWD"
   else
     echo_warn "'$PWD' not a git repository"
   fi
